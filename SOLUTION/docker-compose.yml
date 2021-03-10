@@ -1,0 +1,20 @@
+version: "3.1"
+
+services:
+  mongodb:
+    build: ./mongodb-init
+    container_name: restaurant-db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password123
+
+  app:
+    build: ./app
+    container_name: restaurant-app
+    ports:
+      - "8080:8080"
+    image: restuarant-py
+    depends_on: 
+      - mongodb
+
